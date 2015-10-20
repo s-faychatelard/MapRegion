@@ -1,1 +1,9 @@
-language: OBJECTIVE-C
+osx_image: xcode7
+
+language: objective-c
+
+before_install:
+- export LANG=en_US.UTF-8
+
+script:
+- xcodebuild clean build test -workspace MapRegion.xcworkspace -scheme MapRegion -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES
