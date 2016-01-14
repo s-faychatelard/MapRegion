@@ -25,7 +25,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
     }
     
     @IBAction func copyToPasteboard() {
-        
+        print(self.regionLabel.text)
         UIPasteboard.generalPasteboard().string = self.regionLabel.text
     }
 }
