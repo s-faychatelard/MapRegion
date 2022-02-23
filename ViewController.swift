@@ -19,14 +19,14 @@ class ViewController: UIViewController, MKMapViewDelegate {
         self.regionLabel.text = ""
     }
     
-    func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         self.regionLabel.text = "CLLocationCoordinate2DMake(\(self.mapView.region.center.latitude), \(self.mapView.region.center.longitude))\n"
                               + "MKCoordinateSpanMake(\(self.mapView.region.span.latitudeDelta), \(self.mapView.region.span.longitudeDelta));";
     }
     
     @IBAction func copyToPasteboard() {
         print(self.regionLabel.text)
-        UIPasteboard.generalPasteboard().string = self.regionLabel.text
+        UIPasteboard.general.string = self.regionLabel.text
     }
 }
 
