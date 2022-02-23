@@ -20,8 +20,26 @@ class ViewController: UIViewController, MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        self.regionLabel.text = "CLLocationCoordinate2DMake(\(self.mapView.region.center.latitude), \(self.mapView.region.center.longitude))\n"
-                              + "MKCoordinateSpanMake(\(self.mapView.region.span.latitudeDelta), \(self.mapView.region.span.longitudeDelta));";
+        let northEast = CLLocationCoordinate2DMake(self.mapView.region.center.latitude + self.mapView.region.span.latitudeDelta / 2,
+                                                   self.mapView.region.center.longitude + self.mapView.region.span.longitudeDelta / 2)
+        let southWest = CLLocationCoordinate2DMake(self.mapView.region.center.latitude - self.mapView.region.span.latitudeDelta / 2,
+                                                   self.mapView.region.center.longitude - self.mapView.region.span.longitudeDelta / 2)
+
+        self.regionLabel.text = """
+                                [
+                                    "centerLatitude": \(self.mapView.region.center.latitude),
+                                    "centerLongitude": \(self.mapView.region.center.longitude)),
+                                    "latitudeDelta": \(self.mapView.region.span.latitudeDelta),
+                                    "longitudeDelta": \(self.mapView.region.span.longitudeDelta)
+                                ]
+
+                                MapBounds(
+                                    latitudeNorth = \(northEast.latitude),
+                                    latitudeSouth = \(southWest.latitude),
+                                    longitudeEast = \(northEast.longitude),
+                                    longitudeWest = \(southWest.longitude)
+                                )
+                                """
     }
     
     @IBAction func copyToPasteboard() {
